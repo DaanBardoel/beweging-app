@@ -6,15 +6,15 @@
             </div>
             <div padding>
                 <ion-item>
-                    <ion-input #username type="text" placeholder="Username"></ion-input>
+                    <ion-input [(ngModel)]="username" type="text" placeholder="Username"></ion-input>
                 </ion-item>
 
                 <ion-item>
-                    <ion-input #password type="password" placeholder="Password"></ion-input>
+                    <ion-input [(ngModel)]="password" type="password" placeholder="Password"></ion-input>
                 </ion-item>
             </div>
             <div padding>
-                <ion-button (click)="onLogin(username.value, password.value)" expand="block">Login</ion-button>
+                <ion-button (click)="onLogin(username, password)" expand="block">Login</ion-button>
             </div>
         </ion-col>
     </ion-row>
