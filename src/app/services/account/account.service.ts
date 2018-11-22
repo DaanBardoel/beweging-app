@@ -4,6 +4,8 @@ import {Subject} from 'rxjs';
 import {RegisterRequest} from '../../models/register-request/register-request.model';
 import {RegisterResponse} from '../../models/register-response/register-response.model';
 import {Account} from '../../models/account/account.model';
+import {AlertService} from '../alert/alert.service';
+import {Router} from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 export class AccountService {
@@ -13,7 +15,11 @@ export class AccountService {
 
     public successfullyRegistered = false;
 
-    constructor(private httpClient: HttpClient) {
+    constructor(
+        private httpClient: HttpClient,
+        private alertService: AlertService,
+        private router: Router
+    ) {
     }
 
     public register(account: Account): void {
@@ -38,6 +44,8 @@ export class AccountService {
     public onRegistered(registerResponse: RegisterResponse): void {
         console.log('Successfully registrered', registerResponse);
         this.successfullyRegistered = true;
+        this.alertService.success('Registratie is gelukt', true);
+        this.router.navigate(['/login']);
         this.dataReceived.next();
     }
 

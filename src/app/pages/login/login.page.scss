@@ -8,20 +8,15 @@ $colors: (
         side_bar_color : #1ABC9C,
         profile_color :#16a085,
         logo_border : #16a085
-
 );
 
 app-login {
 
   .backgroundBlack{
-    position: absolute;
+    position: fixed;
     height:100%;
     width: 100%;
     background-color: #111!important;
-  }
-
-  .inner-scroll{
-    background-color: map_get($colors, dark)!important;
   }
 
   .logoHeader {

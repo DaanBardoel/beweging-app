@@ -5,6 +5,7 @@ import {LoginResponse} from '../../models/login-response/login-response.model';
 import {LoginRequest} from '../../models/login-request/login-request.model';
 import {Subject} from 'rxjs';
 import {Router} from '@angular/router';
+import {Account} from '../../models/account/account.model';
 
 @Injectable()
 export class LoginService {
@@ -21,10 +22,10 @@ export class LoginService {
     ) {
     }
 
-    public login(username: string, password: string): void {
+    public login(account: Account): void {
         const url = 'http://localhost:8080/login';
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
-        const loginRequest = new LoginRequest(username, password);
+        const loginRequest = new LoginRequest(account.username, account.password);
 
         this.httpClient.post<LoginResponse>(url, loginRequest, {headers: headers}).subscribe(
             data => this.onLoggedIn(data),

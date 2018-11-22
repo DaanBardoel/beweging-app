@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
 import {AccountService} from '../../services/account/account.service';
-import {AlertService} from '../../services/alert/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -19,8 +18,7 @@ export class RegisterPage implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private accountService: AccountService,
-        private alertService: AlertService) {
+        private accountService: AccountService) {
         if (this.authenticationService.currentAccountValue) {
             this.router.navigate(['/']);
         }
@@ -32,13 +30,13 @@ export class RegisterPage implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            email: ['', [Validators.required, Validators.email]],
-            username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]],
-            gender: [''],
-            age: ['', [Validators.min(1), Validators.max(124)]],
-            town: ['', Validators.required],
-            district: ['']
+            email: new FormControl('', [Validators.required, Validators.email]),
+            username: new FormControl('', [Validators.required]),
+            password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+            gender: new FormControl(''),
+            age: new FormControl('', [Validators.min(1), Validators.max(124)]),
+            town: new FormControl('', [Validators.required]),
+            district: new FormControl('')
         });
     }
 
@@ -50,12 +48,6 @@ export class RegisterPage implements OnInit {
         }
 
         this.loading = true;
-        try {
-            (this.accountService.register(this.registerForm.value));
-            this.alertService.success('Registratie is gelukt', true);
-            this.router.navigate(['/login']);
-        } catch (err) {
-            console.log(err);
-        }
+        this.accountService.register(this.registerForm.value);
     }
 }
