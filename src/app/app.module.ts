@@ -16,17 +16,18 @@ import {LoginService} from './services/login/login.service';
 import {AlertComponent} from './component/alert/alert.component';
 
 @NgModule({
+    declarations: [
+        AppComponent,
+        AlertComponent
+    ],
     imports: [
         BrowserModule,
         HttpClientModule,
         IonicModule.forRoot(),
         AppRoutingModule,
         CommonModule,
+        FormsModule,
         ReactiveFormsModule
-    ],
-    declarations: [
-        AppComponent,
-        AlertComponent
     ],
     entryComponents: [],
     providers: [

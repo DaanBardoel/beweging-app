@@ -4,7 +4,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {LoginResponse} from '../../models/login-response/login-response.model';
 import {LoginRequest} from '../../models/login-request/login-request.model';
 import {Subject} from 'rxjs';
-import {Account} from '../../models/account/account.model';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class LoginService {
@@ -16,14 +16,15 @@ export class LoginService {
     private username: string;
 
     constructor(
-        private httpClient: HttpClient
+        private httpClient: HttpClient,
+        private router: Router
     ) {
     }
 
-    public login(account: Account): void {
+    public login(username: string, password: string): void {
         const url = 'http://localhost:8080/login';
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
-        const loginRequest = new LoginRequest(account.username, account.password);
+        const loginRequest = new LoginRequest(username, password);
 
         this.httpClient.post<LoginResponse>(url, loginRequest, {headers: headers}).subscribe(
             data => this.onLoggedIn(data),
@@ -35,6 +36,7 @@ export class LoginService {
         this.username = loginResponse.username;
 
         console.log('We have received a token! ', this.token);
+        this.router.navigate(['/home'])
         this.tokenReceived.next(this.token);
     }
 

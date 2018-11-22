@@ -6,15 +6,15 @@
             <img alt="logo" src="https://via.placeholder.com/350x150.png?text=Exeter+Fit+App">
         </div>
         <h1 class="loginHeader">COMPANY NAME</h1>
-        <form formGroup="loginForm" (ngSubmit)="onLogin()">
+        <form (ngSubmit)="onLogin(username.value, password.value)" #loginForm>
             <div padding>
-                <ion-input type="text" class="input-access-code" placeholder="Email" formControlName="username"
+                <ion-input type="text" class="input-access-code" placeholder="Email" #username
                            [ngClass]="{ 'ís-invalid': submitted && f.username.errors }"></ion-input>
                 <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                     <div *ngIf="f.username.errors.required">Username is required</div>
                 </div>
                 <br>
-                <ion-input type="password" class="input-access-code" placeholder="Password" formControlName="password"
+                <ion-input type="password" class="input-access-code" placeholder="Password" #password
                            [ngClass]="{ 'ís-invalid': submitted && f.password.errors }"></ion-input>
                 <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                     <div *ngIf="f.password.errors.required">Password is required</div>
