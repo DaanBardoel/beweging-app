@@ -3,8 +3,6 @@ import {LoginService} from '../../services/login/login.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication/authentication.service';
-import {AlertService} from '../../services/alert/alert.service';
-import {AccountService} from '../../services/account/account.service';
 
 @Component({
     selector: 'app-login',
@@ -22,9 +20,7 @@ export class LoginPage implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private loginService: LoginService,
-        private authenticationService: AuthenticationService,
-        private accountService: AccountService,
-        private alertService: AlertService) {
+        private authenticationService: AuthenticationService) {
         if (this.authenticationService.currentAccountValue) {
             this.router.navigate(['/']);
         }

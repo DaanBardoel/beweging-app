@@ -43,6 +43,9 @@ export class RegisterPage implements OnInit {
     onSubmit() {
         this.submitted = true;
 
+
+        console.log(this.registerForm.getRawValue());
+
         if (this.registerForm.invalid) {
             return;
         }
