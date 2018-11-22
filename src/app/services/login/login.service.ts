@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 
-import {LoginResponse} from '../models/login-response.model';
-import {LoginRequest} from '../models/login-request.model';
+import {LoginResponse} from '../../models/login-response/login-response.model';
+import {LoginRequest} from '../../models/login-request/login-request.model';
 import {Subject} from 'rxjs';
+import {Account} from '../../models/account/account.model';
 
 @Injectable()
 export class LoginService {
@@ -14,13 +15,15 @@ export class LoginService {
     private token: string;
     private username: string;
 
-    constructor(private httpClient: HttpClient) {
+    constructor(
+        private httpClient: HttpClient
+    ) {
     }
 
-    public login(username: string, password: string): void {
+    public login(account: Account): void {
         const url = 'http://localhost:8080/login';
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
-        const loginRequest = new LoginRequest(username, password);
+        const loginRequest = new LoginRequest(account.username, account.password);
 
         this.httpClient.post<LoginResponse>(url, loginRequest, {headers: headers}).subscribe(
             data => this.onLoggedIn(data),
